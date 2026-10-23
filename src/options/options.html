@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TechTranslate 设置</title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="page-head">
+        <div class="brand">
+          <span class="logo">译</span>
+          <div>
+            <h1>TechTranslate</h1>
+            <p>GitHub 与技术文档的自动双语翻译 · DeepSeek + 计算机术语表</p>
+          </div>
+        </div>
+        <button id="save" class="btn primary" type="button">保存设置</button>
+      </header>
+
+      <section class="card">
+        <h2>翻译引擎</h2>
+        <p class="desc">使用 OpenAI 兼容接口，默认 DeepSeek 官方。Key 只保存在本机浏览器。</p>
+
+        <label class="field">
+          <span class="field-label">DeepSeek API Key</span>
+          <span class="input-row">
+            <input id="apiKey" type="password" placeholder="sk-..." autocomplete="off" spellcheck="false" />
+            <button id="toggleKey" class="btn ghost" type="button">显示</button>
+          </span>
+          <small>在 platform.deepseek.com 创建；仅用于调用翻译接口。</small>
+        </label>
+
+        <div class="grid2">
+          <label class="field">
+            <span class="field-label">Base URL</span>
+            <input id="baseUrl" type="url" placeholder="https://api.deepseek.com" spellcheck="false" />
+            <small>兼容 OpenAI 格式的服务都能填。Ollama 用 <code>http://127.0.0.1:11434/v1</code>，且必须以 <code>OLLAMA_ORIGINS=*</code> 启动，否则会被 403 拒绝。</small>
+          </label>
+          <label class="field">
+            <span class="field-label">模型</span>
+            <input id="model" type="text" list="models" placeholder="deepseek-chat" spellcheck="false" />
+            <datalist id="models">
+              <option value="deepseek-chat"></option>
+              <option value="deepseek-reasoner"></option>
+            </datalist>
+            <small>翻译用 deepseek-chat 即可，便宜且快。</small>
+          </label>
+        </div>
+
+        <div class="test-row">
+          <button id="test" class="btn" type="button">测试连接</button>
+          <span id="testResult" class="test-result"></span>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>显示与自动翻译</h2>
+
+        <div class="field">
+          <span class="field-label">译文显示方式</span>
+          <div class="radios">
+            <label><input type="radio" name="mode" value="bilingual" checked /> 双语对照（原文 + 译文）</label>
+            <label><input type="radio" name="mode" value="zh" /> 仅中文（隐藏原文）</label>
+          </div>
+        </div>
+
+        <label class="field">
+          <span class="field-label">自动翻译站点</span>
+          <textarea id="sites" rows="6" spellcheck="false" placeholder="github.com"></textarea>
+          <small>每行一个域名，支持 <code>*.example.com</code>；只影响「自动开始」，手动点「翻译本页」不受限制。</small>
+        </label>
+        <div class="inline-actions">
+          <button id="resetSites" class="btn ghost small" type="button">恢复默认站点</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>术语表</h2>
+        <p class="desc">
+          扩展内置了一份计算机术语 / 黑话表（开箱即用、水合、断路器、幂等……），只在原文命中时随请求下发。
+          这里可以补上你所在领域或团队约定的译法，优先级高于内置表。
+        </p>
+
+        <label class="field">
+          <span class="field-label">自定义术语（每行一条）</span>
+          <textarea
+            id="glossary"
+            rows="7"
+            spellcheck="false"
+            placeholder="out of the box => 开箱即用&#10;hydration => 水合&#10;breaking change | 破坏性变更"
+          ></textarea>
+          <small>支持 <code>=&gt;</code>、<code>=</code>、<code>|</code> 三种分隔符；<code>#</code> 开头的行会被忽略。</small>
+        </label>
+      </section>
+
+      <section class="card">
+        <h2>高级</h2>
+        <div class="grid2">
+          <label class="field">
+            <span class="field-label">并发请求数</span>
+            <input id="concurrency" type="number" min="1" max="6" step="1" />
+            <small>1–6，默认 3。遇到 429 就调低。</small>
+          </label>
+          <label class="field">
+            <span class="field-label">单批字符数</span>
+            <input id="maxChars" type="number" min="400" max="6000" step="100" />
+            <small>一次请求合并多少原文，默认 1600。</small>
+          </label>
+        </div>
+
+        <div class="cache-row">
+          <span>译文缓存：<strong id="cacheSize">—</strong></span>
+          <button id="clearCache" class="btn ghost small" type="button">清空缓存</button>
+        </div>
+      </section>
+
+      <section class="card note">
+        <h2>说明</h2>
+        <ul>
+          <li>快捷键 <kbd>Alt</kbd>+<kbd>T</kbd> 翻译 / 还原当前页；也可以在页面右键菜单里翻译选中文字。</li>
+          <li>代码块、行内代码、命令、路径不会被翻译，模型会原样保留。</li>
+          <li>同一段原文会本地缓存，刷新页面不会重复计费；点击「清空缓存」后重新计费。</li>
+          <li>PDF（浏览器内置阅读器）、<code>chrome://</code> 页面无法注入翻译。</li>
+          <li>翻译时会把页面文字片段发送到你所填的接口；不发送浏览记录，不上传页面其他内容。</li>
+        </ul>
+      </section>
+
+      <div class="toast" id="toast" role="status"></div>
+    </div>
+    <script src="options.js" type="module"></script>
+  </body>
+</html>

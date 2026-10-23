@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TechTranslate</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="head">
+        <div class="brand">
+          <span class="logo">译</span>
+          <div class="brand-text">
+            <strong>TechTranslate</strong>
+            <span id="site">—</span>
+          </div>
+        </div>
+        <label class="switch" title="扩展总开关">
+          <input type="checkbox" id="enabled" />
+          <span class="track"></span>
+        </label>
+      </header>
+
+      <main class="card">
+        <div class="row">
+          <div class="label">
+            自动翻译匹配站点
+            <small>打开 GitHub / 文档页时自动开始</small>
+          </div>
+          <label class="switch sm">
+            <input type="checkbox" id="auto" />
+            <span class="track"></span>
+          </label>
+        </div>
+
+        <div class="row">
+          <div class="label">译文显示</div>
+          <div class="seg" id="mode" role="group" aria-label="译文显示模式">
+            <button type="button" data-mode="bilingual">双语对照</button>
+            <button type="button" data-mode="zh">仅中文</button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="label">今日已译</div>
+          <div class="stat" id="stats">—</div>
+        </div>
+      </main>
+
+      <button id="action" class="action" type="button">翻译本页</button>
+      <p id="hint" class="hint"></p>
+      <button id="addSite" class="link add-site" type="button" hidden>加入自动翻译列表</button>
+
+      <footer class="foot">
+        <button id="options" class="link" type="button">设置与术语表</button>
+        <span id="keyState" class="badge">—</span>
+      </footer>
+    </div>
+    <script src="popup.js" type="module"></script>
+  </body>
+</html>

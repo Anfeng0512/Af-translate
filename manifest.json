@@ -1,0 +1,56 @@
+{
+  "manifest_version": 3,
+  "name": "TechTranslate · 技术文档翻译",
+  "version": "1.0.1",
+  "description": "GitHub README / issue / PR 与技术文档的自动双语翻译：DeepSeek + 计算机术语表，代码和命令原样保留。",
+  "minimum_chrome_version": "116",
+  "permissions": ["storage", "activeTab", "contextMenus"],
+  "host_permissions": [
+    "https://api.deepseek.com/*",
+    "http://localhost/*",
+    "http://127.0.0.1/*"
+  ],
+  "optional_host_permissions": ["https://*/*"],
+  "background": {
+    "service_worker": "src/background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "TechTranslate · 技术文档翻译",
+    "default_popup": "src/popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "options_ui": {
+    "page": "src/options/options.html",
+    "open_in_tab": true
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/content/content.js"],
+      "css": ["src/content/content.css"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "commands": {
+    "toggle-page": {
+      "suggested_key": {
+        "default": "Alt+T"
+      },
+      "description": "翻译 / 还原当前页面"
+    }
+  }
+}
+

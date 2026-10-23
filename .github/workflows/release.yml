@@ -1,0 +1,37 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    name: Package and publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build extension zip
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          zip -r "tech-translate-${VERSION}.zip" manifest.json src icons docs README.md LICENSE
+          ls -lh tech-translate-*.zip
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: tech-translate-*.zip
+          generate_release_notes: true
+          body: |
+            ## 安装
+
+            1. 下载下面的 `tech-translate-*.zip` 并解压
+            2. 打开 `chrome://extensions`（Edge: `edge://extensions`），开启「开发者模式」
+            3. 点「加载已解压的扩展程序」，选择解压后的目录
+            4. 在扩展设置里填入 DeepSeek API Key（或用本地 Ollama）
+
+            详见 [README](https://github.com/${{ github.repository }}#安装)。

@@ -1,0 +1,30 @@
+{
+  "name": "tech-translate",
+  "version": "1.0.1",
+  "private": true,
+  "type": "module",
+  "description": "TechTranslate Chrome 扩展：GitHub / 技术文档自动双语翻译（DeepSeek + 术语表）",
+  "scripts": {
+    "test": "node test/unit.test.mjs",
+    "e2e": "node test/e2e.mjs",
+    "icons": "python tools/make-icons.py"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Anfeng0512/Af-translate.git"
+  },
+  "homepage": "https://github.com/Anfeng0512/Af-translate#readme",
+  "bugs": {
+    "url": "https://github.com/Anfeng0512/Af-translate/issues"
+  },
+  "keywords": [
+    "chrome-extension",
+    "translation",
+    "github",
+    "deepseek",
+    "ollama",
+    "manifest-v3"
+  ],
+  "license": "MIT"
+}
+

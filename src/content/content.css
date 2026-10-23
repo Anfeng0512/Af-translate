@@ -1,0 +1,298 @@
+/* TechTranslate 注入样式：尽量贴合宿主页面（GitHub / 文档站），不改动原布局 */
+
+.dshtr-block {
+  display: block;
+  box-sizing: border-box;
+  margin: 3px 0 12px;
+  padding: 0 0 0 10px;
+  border-left: 2px solid;
+  border-left-color: color-mix(in srgb, currentColor 20%, transparent);
+  color: inherit;
+  font-family: inherit;
+  font-size: 0.95em;
+  line-height: 1.7;
+  text-align: left;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  opacity: 0.9;
+}
+
+.dshtr-block:empty {
+  display: none;
+}
+
+/* 模型原样返回（代码、专有名词等）：不重复展示 */
+.dshtr-block.dshtr-same {
+  display: none;
+}
+
+/* 标题译文：在 JS 里按标题实际字号缩到 55% */
+.dshtr-block.dshtr-heading {
+  margin: 2px 0 10px;
+  padding-left: 8px;
+  font-weight: 500;
+  line-height: 1.5;
+  opacity: 0.78;
+}
+
+/* 列表项 / 表格单元 / 图注：译文待在元素内部 */
+.dshtr-block.dshtr-inline {
+  margin: 2px 0 2px;
+  padding-left: 8px;
+  font-size: 0.92em;
+  line-height: 1.65;
+  opacity: 0.88;
+}
+
+.dshtr-block.dshtr-inline:not(:first-child) {
+  margin-top: 4px;
+}
+
+.dshtr-block.dshtr-failed {
+  border-left-color: #d1242f;
+  color: #d1242f;
+  font-size: 0.85em;
+  opacity: 1;
+}
+
+/* 「仅中文」模式：隐藏原文，只留译文 */
+html.dshtr-zh .dshtr-src-hidden {
+  display: none !important;
+}
+
+/* ------------------------------- 提示条 ------------------------------- */
+
+.dshtr-toast {
+  position: fixed;
+  left: 16px;
+  bottom: 16px;
+  z-index: 2147483000;
+  max-width: min(420px, calc(100vw - 32px));
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #1f2328;
+  color: #fff;
+  font: 13px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+  box-shadow: 0 8px 28px rgb(0 0 0 / 25%);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  pointer-events: none;
+}
+
+.dshtr-toast-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.dshtr-toast-error {
+  background: #a40e26;
+}
+
+.dshtr-toast-warn {
+  background: #8a5a00;
+}
+
+.dshtr-toast-ok {
+  background: #1a7f37;
+}
+
+/* ------------------------------ 常驻错误条 ------------------------------ */
+
+.dshtr-errorbar {
+  position: fixed;
+  bottom: 18px;
+  left: 50%;
+  z-index: 2147483002;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  box-sizing: border-box;
+  width: min(680px, calc(100vw - 24px));
+  padding: 12px 14px;
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: 12px;
+  background: #3d1214;
+  color: #ffd9d7;
+  font: 13px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+  box-shadow: 0 12px 40px rgb(0 0 0 / 35%);
+  transform: translateX(-50%);
+}
+
+.dshtr-errorbar-msg {
+  flex: 1;
+  overflow-wrap: anywhere;
+}
+
+.dshtr-errorbar-actions {
+  display: flex;
+  flex: none;
+  gap: 6px;
+}
+
+.dshtr-errorbar button {
+  padding: 4px 9px;
+  border: 1px solid rgb(255 255 255 / 22%);
+  border-radius: 7px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.dshtr-errorbar button:hover {
+  background: rgb(255 255 255 / 10%);
+}
+
+/* ------------------------------ 选区翻译卡片 ------------------------------ */
+
+#dshtr-card {
+  position: fixed;
+  z-index: 2147483001;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border: 1px solid rgb(0 0 0 / 8%);
+  border-radius: 12px;
+  background: #fff;
+  color: #1f2328;
+  font: 14px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+  box-shadow: 0 12px 40px rgb(0 0 0 / 22%);
+}
+
+#dshtr-card.dshtr-dark {
+  border-color: rgb(255 255 255 / 10%);
+  background: #161b22;
+  color: #e6edf3;
+}
+
+.dshtr-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.dshtr-card-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+
+.dshtr-card-close {
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.dshtr-card-close:hover {
+  background: rgb(127 127 127 / 15%);
+  opacity: 1;
+}
+
+.dshtr-card-src {
+  max-height: 88px;
+  margin-bottom: 8px;
+  overflow: auto;
+  padding-left: 8px;
+  border-left: 2px solid rgb(127 127 127 / 30%);
+  font-size: 12px;
+  line-height: 1.55;
+  opacity: 0.6;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.dshtr-card-body {
+  min-height: 22px;
+  font-size: 14px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.dshtr-card-body.is-final {
+  opacity: 1;
+}
+
+.dshtr-card-foot {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.dshtr-copy {
+  padding: 4px 10px;
+  border: 1px solid rgb(127 127 127 / 35%);
+  border-radius: 7px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.dshtr-copy:hover:not(:disabled) {
+  opacity: 1;
+}
+
+.dshtr-copy:disabled {
+  cursor: default;
+  opacity: 0.35;
+}
+
+.dshtr-dots {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  height: 20px;
+}
+
+.dshtr-dots i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.35;
+  animation: dshtr-bounce 1s infinite ease-in-out;
+}
+
+.dshtr-dots i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.dshtr-dots i:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes dshtr-bounce {
+  0%,
+  80%,
+  100% {
+    opacity: 0.25;
+    transform: translateY(0);
+  }
+  40% {
+    opacity: 0.9;
+    transform: translateY(-3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dshtr-block,
+  .dshtr-toast,
+  .dshtr-dots i {
+    animation: none;
+    transition: none;
+  }
+}
