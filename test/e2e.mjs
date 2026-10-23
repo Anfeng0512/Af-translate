@@ -184,7 +184,7 @@ async function launchChrome(profileDir) {
     'about:blank'
   ];
   if (process.platform === 'linux') args.push('--no-sandbox', '--disable-dev-shm-usage');
-  const child = spawn(CHROME, args, { stdio: 'ignore' });
+  const child = spawn(CHROME, args, { stdio: process.env.CI ? ['ignore', 'inherit', 'inherit'] : 'ignore' });
   child.on('error', (err) => console.error('Chrome 启动失败：', err.message));
   await waitFor(
     async () => {

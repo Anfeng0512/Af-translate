@@ -24,14 +24,16 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - id: chrome
-        uses: browser-actions/setup-chrome@v1
-        with:
-          chrome-version: stable
+
+      - name: Show Chrome version
+        run: google-chrome --version
+
       - name: Run headless Chrome tests
         env:
-          CHROME_PATH: ${{ steps.chrome.outputs.chrome-path }}
+          CHROME_PATH: /usr/bin/google-chrome
+          CI: 'true'
         run: node test/e2e.mjs
+
       - name: Upload screenshots
         if: always()
         uses: actions/upload-artifact@v4
